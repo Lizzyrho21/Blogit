@@ -5,6 +5,10 @@ const cors = require("cors");
 const PORT = process.env.PORT;
 const bodyParser = require("body-parser");
 
+
+
+
+
 const { auth } = require("express-openid-connect"); // For authentication route using Auth0
 
 const { requiresAuth } = require("express-openid-connect"); // middleware for authentication routes
