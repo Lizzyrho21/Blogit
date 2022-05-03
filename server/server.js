@@ -6,23 +6,33 @@ const PORT = process.env.PORT;
 const bodyParser = require("body-parser");
 
 
+const { auth } = require('express-oauth2-jwt-bearer');
+
+// Authorization middleware. When used, the Access Token must
+// exist and be verified against the Auth0 JSON Web Key Set.
+const checkJwt = auth({
+  audience: 'http://blogit/api',
+  issuerBaseURL: `https://dev-dub2pki9.us.auth0.com/`,
+});
 
 
 
-const { auth } = require("express-openid-connect"); // For authentication route using Auth0
 
-const { requiresAuth } = require("express-openid-connect"); // middleware for authentication routes
+
+// const { auth } = require("express-openid-connect"); // For authentication route using Auth0
+
+// const { requiresAuth } = require("express-openid-connect"); // middleware for authentication routes
 
 //Configuration for authentication
 // You can generate a suitable string for secret using openssl rand -hex 32 on the command line.
-const config = {
-  authRequired: false,
-  auth0Logout: true,
-  secret: process.env.SECRET_KEY,
-  baseURL: "http://localhost:3001",
-  clientID: process.env.CLIENT_ID,
-  issuerBaseURL: "https://dev-dub2pki9.us.auth0.com",
-};
+// const config = {
+//   authRequired: false,
+//   auth0Logout: true,
+//   secret: process.env.SECRET_KEY,
+//   baseURL: "http://localhost:3001",
+//   clientID: process.env.CLIENT_ID,
+//   issuerBaseURL: "https://dev-dub2pki9.us.auth0.com",
+// };
 
 // const { auth } = require('express-oauth2-jwt-bearer'); // jwt token
 
@@ -38,21 +48,37 @@ const config = {
 // Authentication Route
 // ======================
 // auth router attaches /login, /logout, and /callback routes to the baseURL
-app.use(auth(config));
+// app.use(auth(config));
 app.use(cors());
 app.use(bodyParser.json()); //returns middlewar that only parses json and only looks at requests where Content-type matches the type option!
 
 // Using Auth0
 // I need a login route and a logout route!!
 // The /login and /logout routes are already provided in the auth route
-app.get("/", (req, res) => {
-  res.send(req.oidc.isAuthenticated() ? "Logged in" : "Logged out");
-});
+// app.get("/", (req, res) => {
+//   res.send(req.oidc.isAuthenticated() ? "Logged in" : "Logged out");
+// });
 
-// User Profile Page
-app.get("/profile", requiresAuth(), (req, res) => {
-  res.send(JSON.stringify(req.oidc.user)); //sends JSON object of user info
-});
+// // User Profile Page
+// app.get("/profile", requiresAuth(), (req, res) => {
+//   res.send(JSON.stringify(req.oidc.user)); //sends JSON object of user info
+// });
+
+// PROTECTED AND UNPROTECTED  ROUTES BY AUTHENTICATION
+
+// // This route doesn't need authentication
+// app.get('/api/public', function(req, res) {
+//   res.json({
+//     message: 'Hello from a public endpoint! You don\'t need to be authenticated to see this.'
+//   });
+// });
+
+// // This route needs authentication
+// app.get('/api/private', checkJwt, function(req, res) {
+//   res.json({
+//     message: 'Hello from a private endpoint! You need to be authenticated to see this.'
+//   });
+// });
 
 const Post = require("./models/Post");
 
