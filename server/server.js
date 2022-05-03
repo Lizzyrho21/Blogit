@@ -81,15 +81,7 @@ db.once("open", (_) => {
 
 // The find methods retrieve all the documents of a collection when an empty object is passed.
 // The find() method has two parameters – an object and a callback function. Here, we are passing an empty object.
-app.get("/home", (req, res) => {
-    Post.find({}, function (err, result) {
-        if (err) {
-        console.log(err);
-        } else {
-        res.json(result);
-        }
-    });
-    });
+
 
 // Find ALL posts by Author Name
 // STRETCH: Case insensitive
@@ -134,6 +126,18 @@ const checkJwt = jwt.expressjwt({
 });
 
 app.use(checkJwt);
+
+
+//testing back to front confirmation
+app.get("/home", (req, res) => {
+    Post.find({}, function (err, result) {
+        if (err) {
+        console.log(err);
+        } else {
+        res.json(result);
+        }
+    });
+    });
 
 // Create a Post (Create)
 // May 2nd, 2022

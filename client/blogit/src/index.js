@@ -15,7 +15,7 @@ root.render(
     clientId={process.env.REACT_APP_CLIENTID}
     redirectUri={window.location.origin}
     audience={process.env.REACT_APP_AUDIENCE} //identify the custom API being used. Look at it as ' hooking everything up '
-    scope="read:current_user update:current_user_metadata"
+    scope="create:post update:post delete:post read:current_user"
     useRefreshTokens={true}>
 
     <App />

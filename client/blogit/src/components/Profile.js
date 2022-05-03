@@ -1,49 +1,57 @@
 import React, {useEffect, useState} from 'react';
 import { useAuth0 } from '@auth0/auth0-react';
+import axios from 'axios';
 
-
+// NEXT => Read up on scopes, but for now, add a all POSTS page for when the user logs in!
 const Profile = () => {
 
-    const {user, isAuthenticated, getAccessTokenSilently} = useAuth0();
-    const [userMetadata, setUserMetadata] = useState(null);
-useEffect(() => {
-    const getUserMetadata = async () => {
-        const domain = "dev-dub2pki9.us.auth0.com";
-        try{
-            const accessToken = await getAccessTokenSilently({
-                audience: `https://${domain}/api/v2/`,
-                scope: "read:current_user",
+    const { isAuthenticated, user,  getAccessTokenSilently } = useAuth0();
+    const [posts, setPosts] = useState([]);
+    
+        useEffect(() => {
+        (async () => {
+            try {
+            const token = await  getAccessTokenSilently({
+                audience: process.env.REACT_APP_AUDIENCE,
+                scope: 'read:current_user',
             });
-            const userDetailsByIdUrl = `https://${domain}/api/v2/users/${user.sub}`;
-            const metaDataResponse = await fetch(userDetailsByIdUrl, {
-                headers: {
-                    Authorization: `Bearer ${accessToken}`
-                },
+        
+            //   const response = await fetch(`${process.env.REACT_APP_SERVER_URL}/home`, {
+            //     headers: {
+            //         Authorization: `Bearer ${token}`,
+            //     },
+            const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/home`, {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
             });
-
-            const {user_metadata} = await metaDataResponse.json();
-
-            setUserMetadata(user_metadata);
-                    
-        }catch (e){
-    console.error(e)
-
+            setPosts(response.data);
+            
+            } catch (e) {
+            console.error(e);
+            }
+        })();
+        }, [getAccessTokenSilently]);
+    
+        if (!posts) {
+        return <div>Loading...</div>;
         }
-    };
-getUserMetadata();
-}, [getAccessTokenSilently, user?.sub] )
+
 
   return (
       isAuthenticated && (
     <div>
         <h2>{user.name}</h2>
         <p>{user.email}</p>
-        <h3>User Metadata</h3>
-        {userMetadata ? (
-            <pre>{JSON.stringify(userMetadata, null, 2)}</pre>
-        ) : (
-            "No user Metadata defined"
-        )}
+        {posts.map((el) => {
+            return (
+            <>
+            <h1>{el.title}</h1>
+            <h2>{el.author}</h2>
+            <p>{el.body}</p>
+            </>)
+        })}
+
     </div>
     )
   )
