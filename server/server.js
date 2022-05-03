@@ -4,19 +4,12 @@ const app = express();
 const cors = require("cors");
 const PORT = process.env.PORT;
 const bodyParser = require("body-parser");
-
-
-const { auth } = require('express-oauth2-jwt-bearer');
-
-// Authorization middleware. When used, the Access Token must
-// exist and be verified against the Auth0 JSON Web Key Set.
-const checkJwt = auth({
-  audience: 'http://blogit/api',
-  issuerBaseURL: `https://dev-dub2pki9.us.auth0.com/`,
-});
+const jwt = require('express-jwt');
+const jwksRsa = require('jwks-rsa'); 
 
 
 
+// const { auth } = require('express-oauth2-jwt-bearer');
 
 
 // const { auth } = require("express-openid-connect"); // For authentication route using Auth0
@@ -64,21 +57,7 @@ app.use(bodyParser.json()); //returns middlewar that only parses json and only l
 //   res.send(JSON.stringify(req.oidc.user)); //sends JSON object of user info
 // });
 
-// PROTECTED AND UNPROTECTED  ROUTES BY AUTHENTICATION
 
-// // This route doesn't need authentication
-// app.get('/api/public', function(req, res) {
-//   res.json({
-//     message: 'Hello from a public endpoint! You don\'t need to be authenticated to see this.'
-//   });
-// });
-
-// // This route needs authentication
-// app.get('/api/private', checkJwt, function(req, res) {
-//   res.json({
-//     message: 'Hello from a private endpoint! You need to be authenticated to see this.'
-//   });
-// });
 
 const Post = require("./models/Post");
 
@@ -97,28 +76,12 @@ db.once("open", (_) => {
 // =====================
 // CRUD implementations =================
 
-// Create a Post (Create)
-// May 2nd, 2022
-app.post("/newpost", async (req, res) => {
-  // We create a new post model object with our fields
-  const post = new Post(req.body, {
-    _id: req.body._id,
-    title: req.body.title,
-    author: req.body.author,
-    body: req.body.body,
-  });
-  // saving our data
-  await post.save();
-  //sending data as response to server
-  res.send(post);
-});
-
+//PUBLIC ENDPOINTS////
 // Read ALL Posts (Read)
 
-// Homepage
 // The find methods retrieve all the documents of a collection when an empty object is passed.
 // The find() method has two parameters – an object and a callback function. Here, we are passing an empty object.
-    app.get("/home", (req, res) => {
+app.get("/home", (req, res) => {
     Post.find({}, function (err, result) {
         if (err) {
         console.log(err);
@@ -155,6 +118,43 @@ app.post("/newpost", async (req, res) => {
     });
 
 
+// app.use(jwt());
+const checkJwt = jwt.expressjwt({
+    secret: jwksRsa.expressJwtSecret({
+        cache: true,
+        rateLimit: true,
+        jwksRequestsPerMinute: 5,
+        jwksUri: `https://${process.env.AUTH0_DOMAIN}/.well-known/jwks.json`
+    }),
+    // Validate the audience and the issuer.
+
+    audience: process.env.AUTH0_AUDIENCE,
+    issuer: `https://${process.env.AUTH0_DOMAIN}/`,
+    algorithms: ['RS256']
+});
+
+app.use(checkJwt);
+
+// Create a Post (Create)
+// May 2nd, 2022
+app.post("/newpost", async (req, res) => {
+  // We create a new post model object with our fields
+  const post = new Post(req.body, {
+    _id: req.body._id,
+    title: req.body.title,
+    author: req.body.author,
+    body: req.body.body,
+  });
+  // saving our data
+  await post.save();
+  //sending data as response to server
+  res.send(post);
+});
+
+
+
+
+///////////
 
 // Update a Post (Update)
 // we have the id in the endpoint for end users to click on a button and activate!

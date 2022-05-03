@@ -13,7 +13,10 @@ root.render(
     <Auth0Provider
     domain={process.env.REACT_APP_DOMAIN}
     clientId={process.env.REACT_APP_CLIENTID}
-    redirectUri={window.location.origin}>
+    redirectUri={window.location.origin}
+    audience={process.env.REACT_APP_AUDIENCE} //identify the custom API being used. Look at it as ' hooking everything up '
+    scope="read:current_user update:current_user_metadata"
+    useRefreshTokens={true}>
 
     <App />
     </Auth0Provider>
