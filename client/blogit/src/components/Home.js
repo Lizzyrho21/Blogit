@@ -2,6 +2,8 @@ import { useAuth0 } from "@auth0/auth0-react";
 import Logout from "./Logout";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import Create from './Create';
+import {Button} from 'react-bootstrap';
 // first thing user sees when they log in
 // Has recent posts
 // Has user name displayed
@@ -83,17 +85,18 @@ import axios from "axios";
                 >
                     {post.author}
                 </h5>
-                <button
+                <Button 
                     onClick={() => {
                     detailedView(post._id);
                     }}
                 >
                     Click for a detailed view
-                </button>
+                </Button>
                 </div>
             );
             })}
         </section>
+        <Create />
         </div>
     );
     };
