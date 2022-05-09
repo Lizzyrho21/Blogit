@@ -141,18 +141,21 @@ app.use(checkJwt);
 
 // Create a Post (Create)
 // May 2nd, 2022
-app.post("/newpost", async (req, res) => {
+app.post("/newpost", async (req, res, next) => {
   // We create a new post model object with our fields
-  const post = new Post(req.body, {
-    _id: req.body._id,
-    title: req.body.title,
-    author: req.body.author,
-    body: req.body.body,
-  });
+  const post = new Post(req.body, (error, data) => {
+    if (error) {
+        return next(error)
+    } else {
+        console.log(data)
+       
+        res.json(data)
+    }
+})
   // saving our data
   await post.save();
   //sending data as response to server
-  res.send(post);
+ 
 });
 
 
