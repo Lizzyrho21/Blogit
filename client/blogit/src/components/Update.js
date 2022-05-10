@@ -2,9 +2,13 @@ import React from "react";
 import { Button, Modal } from "react-bootstrap";
 import { useState } from "react";
 // import Form from 'react-bootstrap/Form'
+import axios from 'axios';
+import { useAuth0 } from "@auth0/auth0-react";
 import { InputGroup, FormControl } from "react-bootstrap";
 
-const Update = ({ id, updatePost }) => {
+const Update = ({ id }) => {
+    const { getAccessTokenSilently } = useAuth0();
+
     const [show, setShow] = useState(false);
 
     const handleClose = () => setShow(false);
@@ -13,7 +17,7 @@ const Update = ({ id, updatePost }) => {
     const [update, setUpdate] = useState(null);
 
     const handleChange = (e) => {
-        console.log(e.target.id, ":", e.target.value);
+        // console.log(e.target.id, ":", e.target.value);
         setUpdate({
         ...update,
         [e.target.id]: e.target.value,
@@ -24,6 +28,33 @@ const Update = ({ id, updatePost }) => {
     handleClose();
     //send a toast message!
     };
+
+        const updatePost = async (id, ...updatedBody) => {
+            // console.log(`${id}, is going to be this:  ${updatedBody}`);
+            // axios.put request
+            try {
+            const token = await getAccessTokenSilently({
+                audience: process.env.REACT_APP_AUDIENCE,
+                scope: "create:post",
+            });
+        
+            let response = await axios.put(
+                `${process.env.REACT_APP_SERVER_URL}/update/${id}`,
+                ...updatedBody,
+                {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+                }
+            );
+            console.log(response.data);
+            window.location.reload();
+            } catch (error) {
+            console.log(error.response);
+            }
+        };
+
+
     return (
         <>
         <Button variant="warning" onClick={handleShow}>
