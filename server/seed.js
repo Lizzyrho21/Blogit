@@ -15,8 +15,10 @@ db.once('open', _ => {
   async function seedPosts() {
     console.log('seed posts');
 
-    await Post.create({ title: 'The Silent Patient', author: 'Lizzy Rhodes', body: 'a women may or may not have killed her husband and a theapist is determind to make her talk to discover her secrets.' });
-    await Post.create({ title: 'Post 2', author: 'Fred', body: 'Heyy First one!!.' });
+    await Post.create({ title: 'How To Utilize The MERN Stack', author: 'Lizzy Rhodes', body: 'This is a test example of text!' });
+    await Post.create({ title: 'CSS Grid For Beginners', author: 'Fred Johnson', body: 'This is another test example of text. You may update or delete it.' });
+    await Post.create({ title: 'React Testing Made Easy', author: 'Maria fourbes', body: 'This is another test example of text. You may update or delete it.' });
+
 
 
     console.log('done seeding');

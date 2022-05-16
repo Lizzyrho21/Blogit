@@ -3,9 +3,13 @@ import React from 'react'
 // import {axios} from 'axios';
 import Girl from '../Girl.jpg';
 import guy from '../guy.jpg';
+import { Avatar } from '@mui/material';
+  
 
 
 const Users = ({posts}) => {
+
+
 
     // const detailedView = (id) => {
     //     try {
@@ -26,15 +30,24 @@ const Users = ({posts}) => {
 
   return (
 
-    <div>
+    <div className="avatars">
     
         {posts.map((el => {
           
           return(
             re.test(el.author) ?
             <>
-            <img src={Girl} style={{paddingBottom: '20px', width:'15vw', height:'15vh', borderRadius: '50%', paddingLeft:'20px'}} alt="Woman headshot"/>
-            </>  : <img src={guy} style={{paddingBottom: '20px', width:'15vw', height:'15vh', borderRadius: '50%', paddingLeft:'20px'}} alt="Woman headshot"/>
+            <Avatar
+  alt={el.author}
+  src={Girl}
+  sx={{ width: 56, height: 56 }}
+/>
+           
+            </>  : <Avatar
+  alt={el.author}
+  src={guy}
+  sx={{ width: 56, height: 56 }}
+/>
 
           )
           
@@ -49,4 +62,8 @@ const Users = ({posts}) => {
   )
 }
 
+
+
+
+ 
 export default Users

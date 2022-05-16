@@ -1,0 +1,139 @@
+html{
+    background-color:rgb(211, 226, 228);
+}
+
+.toolbar{
+    display: flex;
+    justify-content: space-between;
+}
+
+.toolbar h3{
+align-self: center;
+color:rgb(44, 202, 249);
+}
+
+.toolbar h5 {
+    font-size:14px;
+    align-self: center;
+    padding-top:0.5rem;
+}
+
+.home{
+    /* flex:3; */
+    align-self:center;
+    margin-left:50%;
+    color:rgb(148, 223, 183);
+    font-size: 18px;
+    text-decoration:none; 
+}
+
+.profile-container{
+    background-color:#78a6d3;
+    margin-top:10%;
+    
+    
+}
+
+.profile-container h2 {
+    text-align: center;
+    padding-bottom:2rem;
+    padding-top:2rem;
+    color:#b8cbde;
+    font-size:3rem;
+
+}
+
+.user-info{
+    background-color: rgba(118, 72, 226, 0.822);
+}
+
+
+
+.user-info h2 {
+    text-align: center;
+    margin-top:1.5rem;
+    color:#d7e1e4;
+    font-weight: bold;
+}
+
+.user-info{
+    background-image: url("https://images.unsplash.com/photo-1651715933770-d67ded27f5d5?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=880&q=80");
+    background-position:40%;
+    background-repeat: no-repeat; /* Do not repeat the image */
+    background-size: cover; /* Resize the background image to cover the entire container */
+}
+
+.profile-picture{
+    width:150px;
+    height:150px;
+    border-radius:50%;
+    margin-left:44.5%;
+    margin-top:1rem;
+    border: solid #b5e48c 5px;
+}
+
+.my-posts{
+    display:flex;
+    flex-direction:column;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    background-color:rgb(238, 242, 243);
+
+}
+
+.my-posts h1 {
+    margin-top:1rem;
+    text-align: center;
+    
+}
+
+.all-posts{
+   display:flex;
+   justify-content: space-between;
+   flex-wrap: wrap;
+
+} 
+
+.card{
+
+margin:1.5rem;
+
+}
+
+.card-body{
+    display:flex;
+    flex-direction:column;
+    align-items: center;
+    margin-top:2rem;
+}
+
+
+.card-text, .card-title{
+    align-self: flex-start;
+}
+
+.card-body .btn {
+    margin:0.2rem;
+    align-self: flex-start;
+
+}
+
+
+
+.form-handler{
+    height: 40px;
+    margin-bottom: 10px;
+    
+}
+
+
+
+.submit{
+    margin-top:2rem;
+}
+
+/* .form-section{
+    background-color:rgb(44, 104, 147);
+  
+} */

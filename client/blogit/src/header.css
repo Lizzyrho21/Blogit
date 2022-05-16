@@ -1,0 +1,75 @@
+html{
+    margin:0;
+    padding:0;
+    background-color:#2b3c4d;
+
+}
+
+.toolbar{
+    display: flex;
+    justify-content: space-between;
+}
+
+.toolbar h3{
+align-self: center;
+color:rgb(44, 202, 249);
+}
+
+.toolbar h5 {
+    font-size:14px;
+    align-self: center;
+    padding-top:0.5rem;
+}
+
+/* .toolbar:nth-child(2){
+   color:purple;
+} */
+
+.profile{
+    /* flex:3; */
+    align-self:center;
+    margin-left:50%;
+    color:rgb(148, 223, 183);
+    font-size: 18px;
+    text-decoration:none; 
+}
+
+
+
+.home-container{
+    background-color:rgb(238, 242, 243);
+    margin-top:3rem;
+    height:100%;
+   
+
+    
+    
+}
+
+.home-container h2 {
+    text-align: center;
+    padding-bottom:2rem;
+    padding-top:2rem;
+    color:rgb(65, 62, 62);
+    font-size:3rem;
+
+}
+
+.allposts{
+    display:flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    /* align-items: center; */
+  
+}
+
+
+.css-bhp9pd-MuiPaper-root-MuiCard-root {
+    /* width: 50rem; */
+    margin: 4px;
+    flex: 0 32%;
+    height: 40vh;
+    margin-bottom: 2%; 
+  
+  
+}
