@@ -42,6 +42,21 @@ const Home = ({ user }) => {
     fetchData();
   }, [getAccessTokenSilently]);
 
+  const detailedView = (id) => {
+    try {
+      posts.map(async (el) => {
+        if (id === el._id) {
+          const response = await axios.get(
+            `${process.env.REACT_APP_SERVER_URL}/posts/${el._id}`
+          );
+          console.log(response.data.body);
+        }
+      });
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <div>
       <header>
@@ -79,7 +94,9 @@ const Home = ({ user }) => {
                 </CardContent>
                 <CardActions>
                   <Button size="small">Share</Button>
-                  <Button size="small">Read More</Button>
+                  <Button onClick={() => detailedView(post._id)}>
+                    Read more
+                  </Button>
                 </CardActions>
               </Card>
             );

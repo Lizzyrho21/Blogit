@@ -3,12 +3,11 @@ const express = require("express"); // pulling express package
 const app = express(); // instance to express
 const cors = require("cors"); // cors instance
 const PORT = process.env.PORT; // our port number for API calls
-const bodyParser = require("body-parser"); //??
 const posts = require("./routes/PostRoute");
 
 app.use(cors());
 
-const Post = require("./models/Post");
+const Post = require("./models/Post"); // manipulate our post entries 
 
 // We can use the FindOne method to fin dpost by author name!
 // all() must be used after where()
@@ -22,10 +21,9 @@ db.once("open", (_) => {
   console.log("We're connected!");
 });
 
-// =====================
-// CRUD implementations =================
+// =========== CRUD implementations ============= //
 
-//PUBLIC ENDPOINTS////
+
 // Read ALL Posts (Read)
 
 // The find methods retrieve all the documents of a collection when an empty object is passed.
@@ -67,7 +65,7 @@ app.get("/posts/:id", async (req, res) => {
   }
 });
 
-app.use("/", posts);
+app.use("/", posts); // these routes require a JWT check
 
 // We need a port to 'listen' to requests on
 app.listen(PORT, () => {
