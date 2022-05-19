@@ -1,4 +1,4 @@
-require("dotenv").config().load();
+require("dotenv").config();
 const express = require("express"); // pulling express package
 const app = express(); // instance to express
 const cors = require("cors"); // cors instance
