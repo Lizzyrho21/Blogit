@@ -5,7 +5,7 @@ const cors = require("cors"); // cors instance
 // const PORT = process.env.PORT; // our port number for API calls
 const posts = require("./routes/PostRoute");
 
-app.use(cors({origin:'https://blogit-app.netlify.app'}));
+app.use(cors({origin:'https://628684f10b74fb0cb71b294f--blogit-app.netlify.app'}));
 
 const Post = require("./models/Post"); // manipulate our post entries 
 
