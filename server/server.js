@@ -1,11 +1,11 @@
-require("dotenv").config();
+require("dotenv").config().load();
 const express = require("express"); // pulling express package
 const app = express(); // instance to express
 const cors = require("cors"); // cors instance
 // const PORT = process.env.PORT; // our port number for API calls
 const posts = require("./routes/PostRoute");
 
-app.use(cors());
+app.use(cors({origin:'*'}));
 
 const Post = require("./models/Post"); // manipulate our post entries 
 
