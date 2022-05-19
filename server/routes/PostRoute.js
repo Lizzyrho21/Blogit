@@ -17,8 +17,7 @@ const checkJwt = jwt.expressjwt({
   }),
   // Validate the audience and the issuer.
 
-  audience: process.env.AUTH0_AUDIENCE,
-  issuer: `https://${process.env.AUTH0_DOMAIN}/`,
+  aud: process.env.AUTH0_AUDIENCE,
   algorithms: ["RS256"],
 });
 
