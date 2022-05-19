@@ -2,7 +2,7 @@ require("dotenv").config();
 const express = require("express"); // pulling express package
 const app = express(); // instance to express
 const cors = require("cors"); // cors instance
-const PORT = process.env.PORT; // our port number for API calls
+// const PORT = process.env.PORT; // our port number for API calls
 const posts = require("./routes/PostRoute");
 
 app.use(cors());
@@ -21,7 +21,13 @@ db.once("open", (_) => {
   console.log("We're connected!");
 });
 
+
+//heroku test s
+app.get('/hello', (req, res) => {
+  res.send('Hello!');
+})
 // =========== CRUD implementations ============= //
+
 
 
 // Read ALL Posts (Read)
@@ -68,6 +74,4 @@ app.get("/posts/:id", async (req, res) => {
 app.use("/", posts); // these routes require a JWT check
 
 // We need a port to 'listen' to requests on
-app.listen(PORT, () => {
-  console.log(`listening on ${PORT}`);
-});
+app.listen(process.env.PORT || 3001);
