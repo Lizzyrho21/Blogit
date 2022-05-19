@@ -5,6 +5,8 @@ const jwksRsa = require("jwks-rsa");
 const bodyParser = require("body-parser"); //??
 const Post = require("../models/Post");
 
+
+
 // What are JWTs?
 const checkJwt = jwt.expressjwt({
   secret: jwksRsa.expressJwtSecret({
