@@ -17,7 +17,6 @@ import Computer from "../puter.jpg";
 const Home = ({ user }) => {
   const { getAccessTokenSilently } = useAuth0();
   const [posts, setPosts] = useState([]);
-  const [description, setDescription] = useState('');
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -43,20 +42,21 @@ const Home = ({ user }) => {
     fetchData();
   }, [getAccessTokenSilently]);
 
-  const detailedView = (id) => {
-    try {
-      posts.map(async (el) => {
-        if (id === el._id) {
-          const response = await axios.get(
-            `${process.env.REACT_APP_SERVER_URL}/posts/${el._id}`
-          );
-            setDescription(response.data.body);
-        }
-      });
-    } catch (error) {
-      console.error(error);
-    }
-  };
+  // const detailedView = (id) => {
+  //   try {
+  //     posts.map(async (el) => {
+  //       if (id === el._id) {
+  //         const response = await axios.get(
+  //           `${process.env.REACT_APP_SERVER_URL}/posts/${el._id}`
+  //         );
+  //           // setDescription(response.data.body);
+          
+  //       }
+  //     });
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // };
 
   return (
     <div>
@@ -95,7 +95,7 @@ const Home = ({ user }) => {
                 </CardContent>
                 <CardActions>
                   <Button size="small">Share</Button>
-                  <Button onClick={() => detailedView(post._id)}>
+                  <Button onClick={() => console.log('hello')}>
                     Read more
                   </Button>
                 </CardActions>
