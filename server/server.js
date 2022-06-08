@@ -6,6 +6,7 @@ const cors = require("cors"); // cors instance
 const posts = require("./routes/PostRoute");
 
 app.use(cors());
+app.options('*', function (req,res) { res.sendStatus(200); });
 
 
 
