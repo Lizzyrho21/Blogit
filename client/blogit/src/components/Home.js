@@ -17,6 +17,7 @@ import Computer from "../puter.jpg";
 const Home = ({ user }) => {
   const { getAccessTokenSilently } = useAuth0();
   const [posts, setPosts] = useState([]);
+  const [description, setDescription] = useState('');
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -49,7 +50,7 @@ const Home = ({ user }) => {
           const response = await axios.get(
             `${process.env.REACT_APP_SERVER_URL}/posts/${el._id}`
           );
-          console.log(response.data.body);
+            setDescription(response.data.body);
         }
       });
     } catch (error) {

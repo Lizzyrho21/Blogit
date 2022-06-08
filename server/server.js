@@ -5,7 +5,9 @@ const cors = require("cors"); // cors instance
 // const PORT = process.env.PORT; // our port number for API calls
 const posts = require("./routes/PostRoute");
 
-app.use(cors({origin:'https://blogit-app.netlify.app'}));
+app.use(cors({origin: '*' }));
+
+
 
 const Post = require("./models/Post"); // manipulate our post entries 
 
@@ -74,4 +76,4 @@ app.get("/posts/:id", async (req, res) => {
 app.use("/", posts); // these routes require a JWT check
 
 // We need a port to 'listen' to requests on
-app.listen(process.env.PORT || 3001);
+app.listen(process.env.PORT || 3003);

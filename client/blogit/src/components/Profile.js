@@ -18,9 +18,8 @@ const Profile = ({ handlePost, posts }) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const author = await user.name;
         const response = await axios.get(
-          `${process.env.REACT_APP_SERVER_URL}/all-posts?author=${author}`
+          `${process.env.REACT_APP_SERVER_URL}/all-posts?author=${user.name}`
         );
 
         setUserPosts(response.data);
