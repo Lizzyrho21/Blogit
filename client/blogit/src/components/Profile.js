@@ -51,7 +51,7 @@ const Profile = ({ handlePost, posts }) => {
         </Container>
         <div className="my-posts">
           
-          {userposts.length === 0 ? (
+          {userposts === null || undefined ? (
             <>
               <h1>No posts found</h1>
               <FormHandler user={user} />
